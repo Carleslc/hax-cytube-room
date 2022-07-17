@@ -11,13 +11,9 @@ function onRoomLink(url) {
     url = url.substring(0, url.length - WITH_PASSWORD.length);
   }
 
-  LOG.info('👉', url);
+  const PASSWORD = getPassword();
 
-  const password = getPassword();
-
-  if (password) {
-    LOG.info('🔐', password);
-  }
+  LOG.info('👉', url, (PASSWORD ? `🔐 ${PASSWORD}` : '🔓'));
 }
 
 function cytubeInfo(player) {
