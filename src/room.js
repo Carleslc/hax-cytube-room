@@ -1,10 +1,10 @@
-const HaxballJS = require("haxball.js");
+const HaxballJS = require('haxball.js');
 
 const settings = require('./settings');
 
-const { LOG } = settings;
-
 const { injectRoom } = require('./lib');
+
+const { LOG, getPassword } = settings;
 
 /** @type {import("haxball-types").Room} */
 let room;
@@ -19,8 +19,8 @@ async function init(HBInit) {
       roomName: settings.ROOM,
       maxPlayers: settings.MAX_PLAYERS,
       public: settings.PUBLIC_ROOM,
-      password: settings.PASSWORD,
       geo: settings.GEOCODE,
+      password: getPassword(),
       noPlayer: true
     });
   }
@@ -40,8 +40,7 @@ async function init(HBInit) {
 
 function checkToken() {
   if (!process.env.TOKEN) {
-    LOG.error("❌ Missing TOKEN environment variable\nhttps://www.haxball.com/headlesstoken");
-    process.exit(1);
+    throw new Error("Missing TOKEN environment variable\nhttps://www.haxball.com/headlesstoken");
   }
 }
 
@@ -61,7 +60,7 @@ function setRoomHandlers(room) {
 
 // Start room
 try {
-  HaxballJS.then(init).catch(LOG.error);
+  HaxballJS.then(init).catch(e => LOG.error(e.message));
 } catch (e) {
   LOG.error(e);
 }

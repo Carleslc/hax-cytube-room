@@ -1,9 +1,13 @@
+const { Logger, LOG_LEVEL } = require('./utils/log');
+
+let PASSWORD = "hax-cytube";
+
 const ROOM = "CyTube /haxb/";
 
 const PUBLIC_ROOM = false;
 
 const MAX_PLAYERS = 12;
-const PASSWORD = "hax-cytube";
+
 const GEOCODE = undefined;
 
 const SCORE_LIMIT = 8; // goals to win the game, 0 for infinite
@@ -12,28 +16,43 @@ const TEAMS_LOCK = false; // block players from joining teams manually?
 
 const DEFAULT_STADIUM = "Classic";
 
+const CYTUBE_URL = "https://cytu.be/r/haxb";
+
+const LOG = new Logger(LOG_LEVEL.INFO);
+
 const ADMINS = new Set([
   'vI7tm0KUTB-rwz5nPorf47_ZTUarz8kX4EMC-a0RmbU', // kslar
   'tDvju5PPtZgleuldQgT7tTRvZzekP14VYEWxgnEvW5Y', // rat
 ]);
 
-const CYTUBE_URL = "https://cytu.be/r/haxb";
+function getPassword() {
+  return PASSWORD;
+}
 
-const { Logger, LOG_LEVEL } = require("./utils/log");
+function setPassword(room, password = null) {
+  if (password === 'open') {
+    password = null;
+  }
 
-const LOG = new Logger(LOG_LEVEL.INFO);
+  PASSWORD = password;
+
+  room.setPassword(PASSWORD);
+
+  return PASSWORD;
+}
 
 module.exports = {
+  LOG,
   ROOM,
   PUBLIC_ROOM,
   MAX_PLAYERS,
-  PASSWORD,
   GEOCODE,
   SCORE_LIMIT,
   TIME_LIMIT,
   TEAMS_LOCK,
   DEFAULT_STADIUM,
-  ADMINS,
   CYTUBE_URL,
-  LOG,
+  ADMINS,
+  getPassword,
+  setPassword,
 };

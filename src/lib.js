@@ -1,4 +1,4 @@
-const { LOG } = require('./settings');
+const { LOG, PUBLIC_ROOM, ADMINS, getPassword } = require('./settings');
 
 /** @type {import("haxball-types").Room} */
 let room;
@@ -70,9 +70,15 @@ function error(msg, targetPlayer = null, log = LOG.debug) {
   send(msg, targetPlayer, COLOR.ERROR, 'italic', 1, log);
 }
 
-/* Authentication */
+function displayError(context, e, player = null) {
+  LOG.error(context, e);
 
-const { ADMINS } = require('./settings');
+  if (player) {
+    error(`${context}` + (player.admin && e ? `: ${e}` : ''), player);
+  }
+}
+
+/* Authentication */
 
 const AUTH = {}; // player id to auth
 
@@ -89,7 +95,14 @@ function resetAuth(player) {
 }
 
 function isAdmin(player) {
+  const allAdmins = !PUBLIC_ROOM && getPassword();
+
+  if (allAdmins) {
+    return true;
+  }
+
   const auth = typeof player === 'object' ? getAuth(player) : player;
+
   return ADMINS.has(auth);
 }
 
@@ -109,9 +122,10 @@ module.exports = {
   setAuth,
   getAuth,
   resetAuth,
-  isAdmin,
   checkAdmin,
+  displayError,
+  getRoom: () => room,
   injectRoom: (r) => {
     room = r;
-  }
+  },
 };
