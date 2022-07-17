@@ -68,7 +68,9 @@ function password(player, args) {
     }
   }
 
-  info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
+  if (!newPassword || player.admin) {
+    info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
+  }
 }
 
 function adminOnly(callback) {
