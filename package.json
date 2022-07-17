@@ -1,0 +1,16 @@
+{
+  "name": "haxball-cytube",
+  "version": "1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Carleslc/hax-cytube-room.git"
+  },
+  "dependencies": {
+    "haxball.js": "^2.0.2"
+  },
+  "devDependencies": {
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-concat": "^2.1.0",
+    "haxball-types": "^1.0.2"
+  }
+}
