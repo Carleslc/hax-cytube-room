@@ -38,6 +38,7 @@ This is needed only the first time or to update the source files if they change.
 # Create the Docker image
 # --build-arg binds the Dockerfile args
 # -t is the image name
+# last parameter is the location of the Dockerfile (.)
 docker build --build-arg room=hax-cytube-room -t hax-cytube-room .
 ```
 
