@@ -11,9 +11,12 @@ function onRoomLink(url) {
     url = url.substring(0, url.length - WITH_PASSWORD.length);
   }
 
-  const PASSWORD = getPassword();
+  LOG.info('👉', url, passwordInfo());
+}
 
-  LOG.info('👉', url, (PASSWORD ? `🔐 ${PASSWORD}` : '🔓'));
+function passwordInfo() {
+  const PASSWORD = getPassword();
+  return PASSWORD ? `🔐 ${PASSWORD}` : '🔓';
 }
 
 function cytubeInfo(player) {
@@ -61,11 +64,7 @@ function password(player, args) {
     setPassword(getRoom(), newPassword);
   }
 
-  const PASSWORD = getPassword();
-  
-  const message = PASSWORD ? `🔐 ${PASSWORD}` : '🔓';
-
-  info(message, player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
+  info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
 }
 
 function adminOnly(callback) {
