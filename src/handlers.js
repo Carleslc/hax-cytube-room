@@ -58,10 +58,14 @@ const ADMIN_HELP = [
 ].join('\n');
 
 function password(player, args) {
-  const newPassword = args.length > 0 && args[0];
-  
+  const newPassword = newPassword = args.length > 0 && args[0];
+
   if (newPassword) {
-    setPassword(getRoom(), newPassword);
+    if (player.admin) {
+      setPassword(getRoom(), newPassword);
+    } else {
+      adminOnlyCallback(player);
+    }
   }
 
   info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
@@ -89,7 +93,7 @@ function help(player) {
 
 const COMMAND_HANDLERS = {
   'help': help,
-  'password': adminOnly(password),
+  'password': password,
 };
 
 async function processCommand(player, msg) {
