@@ -18,7 +18,11 @@ chmod +x start.sh
 1. Get your token at https://www.haxball.com/headlesstoken
 2. Run `./start.sh TOKEN` replacing `TOKEN` with your token
 
-The room will be open as long as you have the node process running. You can stop it with _Ctrl^C_.
+The room will be open as long as you have the node process running.
+You can stop it with _Ctrl^C_.
+
+You can run it in detach mode with `./start.sh TOKEN &`.
+You can stop it looking for the `PID` of the `node ./src/room.js` process using `ps` and then using `kill PID`.
 
 ## Docker
 
