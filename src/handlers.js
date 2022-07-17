@@ -58,7 +58,7 @@ const ADMIN_HELP = [
 ].join('\n');
 
 function password(player, args) {
-  const newPassword = newPassword = args.length > 0 && args[0];
+  const newPassword = args.length > 0 && args[0];
 
   if (newPassword) {
     if (player.admin) {
