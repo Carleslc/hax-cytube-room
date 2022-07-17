@@ -39,7 +39,7 @@ This is needed only the first time or to update the source files if they change.
 # --build-arg binds the Dockerfile args
 # -t is the image name
 # last parameter is the location of the Dockerfile (.)
-docker build --build-arg room=hax-cytube-room -t hax-cytube-room .
+docker build --build-arg ROOM=hax-cytube-room -t hax-cytube-room .
 ```
 
 ### Run the container
