@@ -4,7 +4,7 @@ let PASSWORD = "hax-cytube";
 
 const ROOM = "CyTube /haxb/";
 
-const PUBLIC_ROOM = false;
+const PUBLIC_ROOM = true;
 
 const MAX_PLAYERS = 12;
 
@@ -23,6 +23,7 @@ const LOG = new Logger(LOG_LEVEL.INFO);
 const ADMINS = new Set([
   'vI7tm0KUTB-rwz5nPorf47_ZTUarz8kX4EMC-a0RmbU', // kslar
   'tDvju5PPtZgleuldQgT7tTRvZzekP14VYEWxgnEvW5Y', // rat
+  '5p99drY0rORCZSX8x3ghFXkO42u1V-QDj3QSiOPeYZ0', // rat
 ]);
 
 function getPassword() {

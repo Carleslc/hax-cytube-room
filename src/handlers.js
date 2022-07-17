@@ -40,7 +40,7 @@ function onPlayerLeave(player) {
 
 function onStadiumChange(stadium, byPlayer) {
   if (byPlayer) {
-    LOG.info(`onStadiumChange: '${stadium}' by ${byPlayer}`);
+    LOG.info(`onStadiumChange: '${stadium}' by ${byPlayer.name}`);
   }
 }
 
