@@ -2,7 +2,7 @@ const { WORD_SPLIT_REGEX } = require('./utils/strings');
 
 const { LOG, CYTUBE_URL, getPassword, setPassword } = require('./settings');
 
-const { COLOR, getRoom, info, checkAdmin, setAuth, resetAuth, displayError } = require('./lib');
+const { COLOR, getRoom, info, warn, checkAdmin, setAuth, resetAuth, displayError } = require('./lib');
 
 const WITH_PASSWORD = '&p=1';
 
