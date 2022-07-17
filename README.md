@@ -1,7 +1,7 @@
 # hax-cytube-room
 HaxBall room for https://cytu.be/r/haxb
 
-
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/carleslc)
 
 ## Install
 
