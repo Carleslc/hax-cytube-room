@@ -76,8 +76,8 @@ You can see the container logs with:
 
 ```sh
 # -f means persistent (wait for new logs until you press Ctrl^C)
-# -n 1000 to show only the latest 1000 lines
-docker logs -f hax-cytube-room -n 1000
+# --tail 1000 to show only the latest 1000 lines
+docker logs -f hax-cytube-room --tail 1000
 ```
 
 ### Stop the container
