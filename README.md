@@ -3,6 +3,10 @@ HaxBall room for https://cytu.be/r/haxb
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/carleslc)
 
+## Play
+
+👉 **https://www.haxball.com/play?c=5PHrrBIBMxA** 🔐 _hax-cytube_
+
 ## Install
 
 #### **[`node`](https://nodejs.org/es/download/) & [`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
