@@ -97,7 +97,7 @@ function resetAuth(player) {
 function isAdmin(player) {
   const allAdmins = !PUBLIC_ROOM && getPassword();
 
-  if (allAdmins) {
+  if (allAdmins || room.getPlayerList().length === 1) {
     return true;
   }
 
