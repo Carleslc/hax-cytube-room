@@ -55,6 +55,7 @@ function onPlayerChat(player, msg) {
 
 const ADMIN_HELP = [
   "🔐 !password ▶️ See or change the room password. Use !password open to clear the password.",
+  "🧹 !clearbans ▶️ Reset all current bans so banned people can join again to the room."
 ].join('\n');
 
 function password(player, args) {
@@ -71,6 +72,10 @@ function password(player, args) {
   if (!newPassword || player.admin) {
     info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
   }
+}
+
+function clearBans() {
+  getRoom().clearBans();
 }
 
 function adminOnly(callback) {
@@ -96,6 +101,8 @@ function help(player) {
 const COMMAND_HANDLERS = {
   'help': help,
   'password': password,
+  'clear_bans': adminOnly(clearBans),
+  'clearbans': adminOnly(clearBans),
 };
 
 async function processCommand(player, msg) {
