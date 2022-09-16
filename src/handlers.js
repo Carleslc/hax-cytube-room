@@ -74,8 +74,10 @@ function password(player, args) {
   }
 }
 
-function clearBans() {
+function clearBans(player) {
   getRoom().clearBans();
+
+  info("🧹 List of banned players has been cleared.", player, COLOR.SUCCESS);
 }
 
 function adminOnly(callback) {

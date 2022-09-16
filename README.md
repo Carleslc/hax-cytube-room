@@ -11,6 +11,8 @@ HaxBall room for https://cytu.be/r/haxb
 
 #### **[`node`](https://nodejs.org/es/download/) & [`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
 
+_Only if you're not using the Docker image_
+
 ```sh
 # Install dependencies
 npm install
