@@ -5,7 +5,7 @@ HaxBall room for https://cytu.be/r/haxb
 
 ## Play
 
-👉 **https://www.haxball.com/play?c=5PHrrBIBMxA** 🔐 _hax-cytube_
+👉 **https://www.haxball.com/play?c=tHltZKSXcgw** 🔐 _shaw_
 
 ## Install
 
