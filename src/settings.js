@@ -2,7 +2,7 @@ const { Logger, LOG_LEVEL } = require('./utils/log');
 
 let PASSWORD = "hax-cytube";
 
-const ROOM = "CyTube /haxb/";
+const ROOM = "CyTube /haxb/ (2)";
 
 const PUBLIC_ROOM = true;
 
