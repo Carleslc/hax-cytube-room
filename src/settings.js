@@ -22,12 +22,6 @@ const LOG = new Logger(LOG_LEVEL.INFO);
 
 const ADMINS = new Set([
   'vI7tm0KUTB-rwz5nPorf47_ZTUarz8kX4EMC-a0RmbU', // kslar
-  'tDvju5PPtZgleuldQgT7tTRvZzekP14VYEWxgnEvW5Y', // rat
-  'bUJ2E-xVPzdJ1-A3gQfeby_QUzgRNTloundp1kcZVqU', // rat
-  'hCuoKB4keUdkUX_GpJwunTVUy0TCK7SDF0OYNwdhJek', // messoy
-  'IZ1zGXjQvtDVurWZjR3fWISTdwnsgMgJDKlcGo-SDUk', // Krubb
-  'uRN62wmcv1LBMgBc7n4ybvPZt3ExzCwvdferjshfeZc', // GIGANTE
-  'hCuoKB4keUdkUX_GpJwunTVUy0TCK7SDF0OYNwdhJek', // hax-cytube
   '58CmWxJkh4MGWQ3X9yNCK4A0L6rIzHbAsYEnGqSrIoY', // cucktagious
 ]);
 

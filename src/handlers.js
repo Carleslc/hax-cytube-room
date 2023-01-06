@@ -2,7 +2,7 @@ const { WORD_SPLIT_REGEX } = require('./utils/strings');
 
 const { LOG, CYTUBE_URL, getPassword, setPassword } = require('./settings');
 
-const { COLOR, getRoom, info, warn, checkAdmin, setAuth, resetAuth, displayError } = require('./lib');
+const { COLOR, getRoom, info, warn, checkAdmin, isSuperAdmin, setAuth, resetAuth, displayError } = require('./lib');
 
 const WITH_PASSWORD = '&p=1';
 
@@ -54,23 +54,28 @@ function onPlayerChat(player, msg) {
 }
 
 const ADMIN_HELP = [
-  "🔐 !password ▶️ See or change the room password. Use !password open to clear the password.",
-  "🧹 !clearbans ▶️ Reset all current bans so banned people can join again to the room."
+  "🧹 !clearbans ▶️ Reset all current bans so banned people can join again to the room.",
+  "🔐 !password ▶️ See the room password."
+].join('\n');
+
+const SUPERADMIN_HELP = [
+  "🔐 !password [new] ▶️ Change the room password. Use !password open to clear the password and open the room.",
 ].join('\n');
 
 function password(player, args) {
   const newPassword = args.length > 0 && args[0];
+  const changePassword = newPassword && isSuperAdmin(player);
 
   if (newPassword) {
-    if (player.admin) {
+    if (changePassword) {
       setPassword(getRoom(), newPassword);
     } else {
       adminOnlyCallback(player);
     }
   }
 
-  if (!newPassword || player.admin) {
-    info(passwordInfo(), player, COLOR.SUCCESS, 'normal', newPassword ? LOG.info : LOG.debug);
+  if (!newPassword || changePassword) {
+    info(passwordInfo(), player, COLOR.SUCCESS, 'normal', changePassword ? LOG.info : LOG.debug);
   }
 }
 
@@ -85,16 +90,22 @@ function adminOnly(callback) {
 }
 
 function adminOnlyCallback(player, args, callback) {
-  if (player.admin) {
+  if (typeof callback === 'function' && (player.admin || isSuperAdmin(player))) {
     callback(player, args);
-  } else {
-    warn("🚫 Sorry, you do not have permissions to execute this command.", player);
+    return;
   }
+  warn("🚫 Sorry, you do not have permissions to execute this command.", player);
 }
 
 function help(player) {
   if (player.admin) {
-    info('⚜️ ADMIN ⚜️\n' + ADMIN_HELP, player, COLOR.DEFAULT);
+    let adminHelp = '⚜️ ADMIN ⚜️\n' + ADMIN_HELP;
+
+    if (isSuperAdmin(player)) {
+      adminHelp += '\n' + SUPERADMIN_HELP;
+    }
+
+    info(adminHelp, player, COLOR.DEFAULT);
   } else {
     cytubeInfo(player);
   }

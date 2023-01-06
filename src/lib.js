@@ -97,10 +97,10 @@ function resetAuth(player) {
 function isAdmin(player) {
   const allAdmins = !PUBLIC_ROOM && getPassword();
 
-  if (allAdmins || room.getPlayerList().length === 1) {
-    return true;
-  }
+  return allAdmins || room.getPlayerList().length === 1 || isSuperAdmin(player);
+}
 
+function isSuperAdmin(player) {
   const auth = typeof player === 'object' ? getAuth(player) : player;
 
   return ADMINS.has(auth);
@@ -123,6 +123,7 @@ module.exports = {
   getAuth,
   resetAuth,
   checkAdmin,
+  isSuperAdmin,
   displayError,
   getRoom: () => room,
   injectRoom: (r) => {
