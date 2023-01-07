@@ -1,5 +1,5 @@
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
-FROM node:16
+FROM node:latest
 
 # Set variables
 ARG ROOM=room
@@ -16,7 +16,7 @@ RUN chown -R ${USER}:${USER} /home/$ROOM
 ## A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY --chown=${USER}:${USER} package*.json ./
 
-RUN npm install -g node-pre-gyp
+RUN npm install -g @mapbox/node-pre-gyp
 
 ## Set non-root user
 USER ${USER}
