@@ -9,6 +9,7 @@ const PUBLIC_ROOM = true;
 const MAX_PLAYERS = 16;
 
 const GEOCODE = undefined;
+// const GEOCODE = { code: 'de', lat: 50.1213479, lon: 8.4964822 }; // FRA1 (Frankfurt)
 
 const SCORE_LIMIT = 8; // goals to win the game, 0 for infinite
 const TIME_LIMIT = 0; // max minutes per game, 0 for infinite
