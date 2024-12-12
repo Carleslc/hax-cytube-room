@@ -19,22 +19,45 @@ _If using Docker, skip the following section._
 
 Install **[`node`](https://nodejs.org/es/download/)** and **[`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**.
 
-You can install _node_ and _npm_ using [**`nvm`** (Node Version Manager)](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating):
+You can install _node_ and _npm_ using [**`nvm`** (Node Version Manager)](https://github.com/nvm-sh/nvm?tab=readme-ov-file):
+
+If using _Bash / Zsh_ shell, install [`nvm`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) with:
 
 ```sh
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
 
-# Install node and npm using nvm
+If using _Fish_ shell, install [`nvm.fish`](https://github.com/jorgebucaran/nvm.fish?tab=readme-ov-file) with [`fisher`](https://github.com/jorgebucaran/fisher?tab=readme-ov-file):
+
+```sh
+# Install fisher
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+
+# Install nvm.fish
+fisher install jorgebucaran/nvm.fish
+```
+
+Then install _node_ and _npm_ using `nvm` with:
+
+```sh
+# Bash / Zsh
 nvm install --lts
 nvm use --lts
 
-# See installed version
+# Fish
+nvm install lts
+nvm use lts
+```
+
+See installed versions:
+
+```sh
 node --version
 npm --version
 ```
 
-Install dependencies:
+Install dependencies in this folder:
 
 ```sh
 npm install
@@ -48,9 +71,25 @@ chmod +x start.sh
 
 ## Run
 
-1. Get your token at https://www.haxball.com/headlesstoken
+1. Get your token at:
 
-2. Run `./start.sh $TOKEN` replacing `$TOKEN` with your token.
+    https://www.haxball.com/headlesstoken
+
+2. Run `./start.sh $TOKEN`
+
+    Replace `$TOKEN` with your token.
+
+You can also set the token as an environment variable in your host:
+
+```sh
+# Bash / Zsh
+export TOKEN=$TOKEN
+
+# Fish
+set -x TOKEN $TOKEN
+```
+
+If you set the token in your host then you do **not** need to replace `$TOKEN` in the start command.
 
 The room will be open as long as you have the node process running.
 
@@ -88,20 +127,6 @@ You can start the room in detach mode with:
 ./start.sh $TOKEN > room.log 2>&1 & disown
 ```
 
-Replace `$TOKEN` with your HaxBall token.
-
-You can also set the token as an environment variable in your host, replacing `$TOKEN`:
-
-```sh
-# Bash / Zsh
-export TOKEN=$TOKEN
-
-# Fish
-set -x TOKEN $TOKEN
-```
-
-If you set the token in your host then you do **not** need to replace `$TOKEN` in the command above.
-
 #### Get the room link
 
 You can see the logs with:
@@ -118,9 +143,9 @@ You can stop the room in background looking for the `PID` of the `node ./src/roo
 
 ```sh
 # Find the PID of the node process
-ps -e | grep room.js
+ps -e | grep node
 
-# Stop the node process (replace PID with the process id)
+# Stop the node process (replace PID with the process number)
 kill PID
 ```
 
