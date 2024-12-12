@@ -1,5 +1,6 @@
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
-FROM node:latest
+# https://hub.docker.com/_/node
+FROM node:lts
 
 # Set variables
 ARG ROOM=room

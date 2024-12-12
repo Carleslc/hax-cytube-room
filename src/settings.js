@@ -1,8 +1,8 @@
 const { Logger, LOG_LEVEL } = require('./utils/log');
 
-let PASSWORD = "hax-cytube";
+let PASSWORD = process.env.ROOM_PASSWORD || "hax-cytube";
 
-const ROOM = "CyTube /haxb/";
+const ROOM = process.env.ROOM || "CyTube /haxb/";
 
 const PUBLIC_ROOM = true;
 
@@ -21,9 +21,8 @@ const CYTUBE_URL = "https://cytu.be/r/haxb";
 const LOG = new Logger(LOG_LEVEL.INFO);
 
 const ADMINS = new Set([
-  'vI7tm0KUTB-rwz5nPorf47_ZTUarz8kX4EMC-a0RmbU', // kslar (chrome)
-  'YdA7lNORHkPIjbbWVgUGBNtzOEoLj7Csp-jKJFWwMMc', // kslar (firefox)
-  '58CmWxJkh4MGWQ3X9yNCK4A0L6rIzHbAsYEnGqSrIoY', // cucktagious
+  'e32kly4k7siLmAPyqwFRXAzygzf7RCTEsAPS3cvRMN8', // kslar
+  '58CmWxJkh4MGWQ3X9yNCK4A0L6rIzHbAsYEnGqSrIoY', // cont
   'jp9_VMW5JufSdzKV3AEqxzNfAHUMo5YOhdLl5qml3_0', // rat
 ]);
 

@@ -5,32 +5,167 @@ HaxBall room for https://cytu.be/r/haxb
 
 ## Install
 
-#### **[`node`](https://nodejs.org/es/download/) & [`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
-
-_Only if you're not using the Docker image_
+First, clone this repository and move to the `hax-cytube-room` folder:
 
 ```sh
-# Install dependencies
-npm install
+# Clone the repository
+git clone https://github.com/Carleslc/hax-cytube-room.git
 
-# Set executable permissions to the start script
+# Move to the repository folder
+cd hax-cytube-room
+```
+
+_If using Docker, skip the following section._
+
+Install **[`node`](https://nodejs.org/es/download/)** and **[`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**.
+
+You can install _node_ and _npm_ using [**`nvm`** (Node Version Manager)](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating):
+
+```sh
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# Install node and npm using nvm
+nvm install --lts
+nvm use --lts
+
+# See installed version
+node --version
+npm --version
+```
+
+Install dependencies:
+
+```sh
+npm install
+```
+
+Set executable permissions to the start script:
+
+```sh
 chmod +x start.sh
 ```
 
 ## Run
 
 1. Get your token at https://www.haxball.com/headlesstoken
-2. Run `./start.sh TOKEN` replacing `TOKEN` with your token
+
+2. Run `./start.sh $TOKEN` replacing `$TOKEN` with your token.
 
 The room will be open as long as you have the node process running.
-You can stop it with _Ctrl^C_.
 
-You can run it in detach mode with `./start.sh TOKEN &`.
-You can stop it looking for the `PID` of the `node ./src/room.js` process using `ps` and then using `kill PID`.
+You can stop the room with _Ctrl^C_.
+
+### Configure the room name and password
+
+_This step is optional._
+
+Set room name and password with these optional environment variables before starting the room:
+
+- `ROOM` to set the room name
+
+    Default: `CyTube /haxb/`
+
+- `ROOM_PASSWORD` to set the room password
+
+    Default: `hax-cytube`
+
+```sh
+# Bash / Zsh
+export ROOM="CyTube /haxb/"
+export ROOM_PASSWORD=hax-cytube
+
+# Fish
+set -x ROOM "CyTube /haxb/"
+set -x ROOM_PASSWORD hax-cytube
+```
+
+### Run in background
+
+You can start the room in detach mode with:
+
+```sh
+./start.sh $TOKEN > room.log 2>&1 & disown
+```
+
+Replace `$TOKEN` with your HaxBall token.
+
+You can also set the token as an environment variable in your host, replacing `$TOKEN`:
+
+```sh
+# Bash / Zsh
+export TOKEN=$TOKEN
+
+# Fish
+set -x TOKEN $TOKEN
+```
+
+If you set the token in your host then you do **not** need to replace `$TOKEN` in the command above.
+
+#### Get the room link
+
+You can see the logs with:
+
+```sh
+# -f means persistent (wait for new logs until you press Ctrl^C)
+# -n1000 to show only the latest 1000 lines
+tail -f -n1000 room.log
+```
+
+#### Stop the room
+
+You can stop the room in background looking for the `PID` of the `node ./src/room.js` process using `ps` command and then using `kill PID`:
+
+```sh
+# Find the PID of the node process
+ps -e | grep room.js
+
+# Stop the node process (replace PID with the process id)
+kill PID
+```
+
+If you want to remove the logs:
+
+```sh
+rm room.log
+```
+
+### Run in background (Screen)
+
+You can also run and manage the room using [`screen`](https://www.gnu.org/software/screen/manual/screen.html) commands:
+
+```sh
+# Create a screen and run the room in background
+# -S is the screen name
+# -d -m is detached mode (parallel process) to run the room in background
+screen -S hax-cytube-room -d -m ./start.sh $TOKEN
+```
+
+List the active screens:
+
+```sh
+screen -ls
+```
+
+Enter the screen to see the logs with:
+
+```sh
+screen -r hax-cytube-room
+```
+
+Stop the screen with _Ctrl^C_ inside the screen.
+
+Exit the screen without stopping it with _Ctrl^A + D_.
+
+Remove the screen and stop the room with this command outside the screen:
+
+```sh
+screen -X -S hax-cytube-room quit
+```
 
 ## Docker
 
-Optionally, you can run this room as a [Docker](https://www.docker.com/) image.
+Optionally, you can also run the room using a [Docker](https://www.docker.com/) image.
 
 ### Build image
 
@@ -55,9 +190,13 @@ Replace `$TOKEN` with your HaxBall token from https://www.haxball.com/headlessto
 # -d is detached (parallel process)
 # --name is the container name
 # -e TOKEN=$TOKEN passes the $TOKEN as an environment variable
+# -e ROOM sets the room name
+# -e ROOM_PASSWORD sets the room password
 # last parameter is the image name
-docker run -d --name hax-cytube-room -e TOKEN=$TOKEN hax-cytube-room
+docker run -d --name hax-cytube-room -e ROOM="CyTube /haxb/" -e ROOM_PASSWORD=hax-cytube -e TOKEN=$TOKEN hax-cytube-room
 ```
+
+You can replace the `ROOM_PASSWORD` and `ROOM` with your own values for the room password and room name.
 
 You can also set the token as an environment variable in your host, replacing `$TOKEN`:
 
@@ -65,7 +204,9 @@ You can also set the token as an environment variable in your host, replacing `$
 export TOKEN=$TOKEN
 ```
 
-If you set the token in your host then you do not need to replace `$TOKEN` in the `docker run` command of above.
+If you set the token in your host then you do not need to replace `$TOKEN` in the `docker run` command above.
+
+**Already in use?**
 
 _You get an error like `docker: Error response from daemon: Conflict. The container name "/hax-cytube-room" is already in use by container`_ ?
 
@@ -81,8 +222,9 @@ You can see the container logs with:
 
 ```sh
 # -f means persistent (wait for new logs until you press Ctrl^C)
+# -t to show the timestamp for each line
 # --tail 1000 to show only the latest 1000 lines
-docker logs -f hax-cytube-room --tail 1000
+docker logs -f -t --tail 1000 hax-cytube-room
 ```
 
 ### Stop the container
