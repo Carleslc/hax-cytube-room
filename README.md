@@ -229,17 +229,7 @@ You can also set the token as an environment variable in your host, replacing `$
 export TOKEN=$TOKEN
 ```
 
-If you set the token in your host then you do not need to replace `$TOKEN` in the `docker run` command above.
-
-**Already in use?**
-
-_You get an error like `docker: Error response from daemon: Conflict. The container name "/hax-cytube-room" is already in use by container`_ ?
-
-Remove the container first and try again:
-
-```sh
-docker rm hax-cytube-room
-```
+If you set the token in your host then you do **not** need to replace `$TOKEN` in the `docker run` command above.
 
 ### Get the room link
 
@@ -250,6 +240,22 @@ You can see the container logs with:
 # -t to show the timestamp for each line
 # --tail 1000 to show only the latest 1000 lines
 docker logs -f -t --tail 1000 hax-cytube-room
+```
+
+### See the running containers
+
+```sh
+docker ps
+
+# See also the stopped containers
+docker ps -a
+```
+
+You should see something like this:
+
+```sh
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS     NAMES
+57e0b4582027   hax-cytube-room         "./start.sh"             5 minutes ago    Up 5 minutes              hax-cytube-room
 ```
 
 ### Stop the container
@@ -269,6 +275,10 @@ docker start hax-cytube-room
 ```
 
 If you get an `Error: Invalid Token Provided!` you need to remove the container and recreate it with a new token.
+
+_You get an error like `docker: Error response from daemon: Conflict. The container name "/hax-cytube-room" is already in use by container`_ ?
+
+Remove the container first and try again.
 
 ### Remove the container
 
