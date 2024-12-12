@@ -6,7 +6,7 @@
     "url": "https://github.com/Carleslc/hax-cytube-room.git"
   },
   "dependencies": {
-    "haxball.js": "^2.0.2"
+    "haxball.js": "^2.2.2"
   },
   "devDependencies": {
     "grunt-contrib-clean": "^2.0.1",
